@@ -36,16 +36,11 @@ client.on ('message', async message => {
     return
   }
 
-  // deleting dead messages in channel
-  if (dead) {
-    await message.delete ()
-      .catch (console.log.bind (console))
-    return
-  }
-
   const msg = message.content
   if (msg.indexOf (prefix) != 0)
     return
+
+  const role = message.guild.roles.find ('name', 'DEAD')
 
   const command = msg.split (/\s+/)[1]
   const args = msg.split (/\s+/).slice (2)
@@ -58,11 +53,13 @@ client.on ('message', async message => {
       !shots--
       ? (async () => {
         shot[id] = new Date ().getTime ()
-        await message.channel.send (':gun:BANG!')
+        message.member.addRole (role).catch (console.error)
+        setTimeout (() => message.member.removeRole (role).catch (console.error), death_timer)
+        await message.channel.send ('🔫 BANG!')
         await message.channel.send (`${message.author.username} is now dead for ${death_timer} milliseconds!`)
       }) ()
       : (async () => {
-        await message.channel.send (':gun:click!')
+        await message.channel.send ('🔫 click!')
         await message.channel.send (`${message.author.username} survives, for now...`)
       }) ()
     },
