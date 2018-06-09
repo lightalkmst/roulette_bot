@@ -6,9 +6,9 @@ client.on ('ready',  () => {
   // client.user.setActivity (`Serving 54,849 servers`)
 })
 
-const prefix = '🔫'
+const prefix = '🔫 '
 const shot = {}
-const death_timer = 1000000
+const death_timer = 5 * 60 * 1000
 
 var shots = 0
 var players = 0
@@ -47,11 +47,11 @@ client.on ('message', async message => {
   if (msg.indexOf (prefix) != 0)
     return
 
-  const command = msg.split (/\s+/)[0].substr (prefix.length)
-  const args = msg.split (/\s+/).slice (1)
+  const command = msg.split (/\s+/)[1]
+  const args = msg.split (/\s+/).slice (2)
   ;(({
     reload: async () => {
-      shots = Math.floor (Math.random () * parseInt (command))
+      shots = Math.floor (Math.random () * parseInt (args[0]))
       await message.channel.send (`The 🔫 has been loaded with a bullet!`)
     },
     shoot: () => {
