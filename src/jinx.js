@@ -18,8 +18,8 @@ module.exports = async message => {
       const target = message.mentions.users.first ()
       jinxed[target.id] = strength - 1
       await message.guild.members.find ('id', target.id).addRole (role)
-      await message.channel.send (`${target.username} has been jinxed by ${message.author.username}!`)
-      await message.channel.send (`${target.username} has to be mentioned ${strength} time${strength - 1 ? 's' : ''} to be freed`)
+      await message.channel.send (`<@${target.id}> has been jinxed by ${message.author.username}!`)
+      await message.channel.send (`<@${target.id}> has to be mentioned ${strength} time${strength - 1 ? 's' : ''} to be freed`)
     },
   ], [
     /<@!?\d{17,19}>/, async match => {
@@ -28,11 +28,11 @@ module.exports = async message => {
           !jinxed[user.id]--
           ? (async () => {
             delete jinxed[user.id]
-            await message.channel.send (`${user.username} has been freed from their jinx!`)
+            await message.channel.send (`<@${user.id}> has been freed from their jinx!`)
             await message.guild.members.find ('id', user.id).removeRole (role)
           }) ()
           : (
-            message.channel.send (`${user.username} has to be mentioned ${jinxed[user.id] + 1} more time${jinxed[user.id] ? 's' : ''} to be freed`)
+            message.channel.send (`<@${user.id}> has to be mentioned ${jinxed[user.id] + 1} more time${jinxed[user.id] ? 's' : ''} to be freed`)
           )
       })
     },

@@ -37,7 +37,7 @@ module.exports = async message => {
         shot[id] = new Date ().getTime ()
         await message.member.addRole (role)
         await message.channel.send ('🔫 BANG!')
-        await message.channel.send (`${message.author.username} is now dead for ${death_timer} milliseconds!`)
+        await message.channel.send (`<@${message.author.id}> is now dead for ${death_timer} milliseconds!`)
         setTimeout (() => {
           message.member.removeRole (role)
           delete shot[id]
@@ -45,7 +45,7 @@ module.exports = async message => {
       }) ()
       : (async () => {
         await message.channel.send ('🔫 click!')
-        await message.channel.send (`${message.author.username} survives, for now...`)
+        await message.channel.send (`<@${message.author.id}> survives, for now...`)
         await message.channel.send (`${chambers-- - 1} chambers remain`)
       }) ()
     },

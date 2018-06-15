@@ -7,7 +7,7 @@ const bottle = require ('./src/bottle')
 
 client.on ('ready',  () => {
   console.log (`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`)
-  client.user.setActivity (`Trolling ${client.guilds.size} servers`)
+  client.user.setActivity (`Trolling ${client.guilds.size} server${client.guilds.size - 1 ? 's' : ''}`)
 })
 
 client.on ('message', async message => {
