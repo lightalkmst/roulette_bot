@@ -11,9 +11,13 @@ client.on ('ready',  () => {
 })
 
 client.on ('message', async message => {
-  // This event will run on every single message received, from any channel or DM.
   if (message.author.bot)
     return
+
+  (() => {
+    const send = message.channel.send.bind (message.channel)
+    message.channel.send = s => send (s).catch (console.error)
+  }) ()
 
   ;[roulette, jinx, bottle].forEach (x => x (message))
 })

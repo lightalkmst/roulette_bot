@@ -26,7 +26,7 @@ module.exports = async message => {
 
   util.exec ([[
     /^🔫 reload ([0-9]+)$/, async match => {
-      chambers = parseInt (match[3])
+      chambers = parseInt (match[1])
       shots = Math.floor (Math.random () * chambers)
       await message.channel.send (`The 🔫 has been loaded with a bullet!`)
     },
@@ -36,24 +36,17 @@ module.exports = async message => {
       ? (async () => {
         shot[id] = new Date ().getTime ()
         await message.member.addRole (role)
-          .catch (console.error)
         await message.channel.send ('🔫 BANG!')
-          .catch (console.error)
         await message.channel.send (`${message.author.username} is now dead for ${death_timer} milliseconds!`)
-          .catch (console.error)
         setTimeout (() => {
           message.member.removeRole (role)
-            .catch (console.error)
           delete shot[id]
         }, death_timer)
       }) ()
       : (async () => {
         await message.channel.send ('🔫 click!')
-          .catch (console.error)
         await message.channel.send (`${message.author.username} survives, for now...`)
-          .catch (console.error)
         await message.channel.send (`${chambers-- - 1} chambers remain`)
-          .catch (console.error)
       }) ()
     },
   ]]) (message)
