@@ -51,7 +51,7 @@ module.exports = async message => {
         }
         else {
           await message.channel.send ('🔫 click!')
-          await message.channel.send (`No chambers remaining`)
+          await message.channel.send ('The :gun: is empty')
         }
       }) ()
     },
