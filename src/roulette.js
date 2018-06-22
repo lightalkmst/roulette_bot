@@ -44,9 +44,15 @@ module.exports = async message => {
         }, death_timer)
       }) ()
       : (async () => {
-        await message.channel.send ('🔫 click!')
-        await message.channel.send (`<@${message.author.id}> survives, for now...`)
-        await message.channel.send (`${chambers-- - 1} chambers remain`)
+        if (shots >= 0) {
+          await message.channel.send ('🔫 click!')
+          await message.channel.send (`<@${message.author.id}> survives, for now...`)
+          await message.channel.send (`${chambers-- - 1} chambers remain`)
+        }
+        else {
+          await message.channel.send ('🔫 click!')
+          await message.channel.send (`No chambers remaining`)
+        }
       }) ()
     },
   ]]) (message)

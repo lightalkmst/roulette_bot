@@ -11,7 +11,7 @@ module.exports = async message => {
 
   util.exec ([[
     /^!spin$/, async match => {
-      const target = message.guild.members.filter (user => user.presence.status == 'online' && !user.bot).random ().user
+      const target = message.guild.members.filter (member => member.presence.status == 'online' && !member.user.bot).random ().user
       await message.channel.send (`<@${target.id}> has been chosen to answer a question!`)
       await ask_question ()
     },
